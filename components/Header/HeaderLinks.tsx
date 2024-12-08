@@ -35,8 +35,8 @@ export function HeaderLinks() {
   ];
 
   return (
-    <nav className="flex gap-5 items-center  max-[768px]:justify-center">
-      <ul className="flex gap-[35px] nav-links z-[100px] max-[768px]:flex-col">
+    <nav className="flex gap-5 items-center  max-[911px]:justify-center">
+      <ul className="flex gap-[35px] nav-links z-[100px] max-[911px]:flex-col">
         {navItems.map((item) => (
           <NavItem
             key={item.href}
@@ -58,7 +58,7 @@ interface NavItemProps {
 
 function NavItem({ label, href, active }: NavItemProps) {
   return (
-    <li className="nav-link max-[768px]:text-[20px]  max-[768px]:justify-center">
+    <li className="nav-link max-[911px]:text-[20px]  max-[911px]:justify-center">
       <Link
         href={href}
         className={clsx(
