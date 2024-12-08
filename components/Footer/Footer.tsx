@@ -2,6 +2,7 @@ import Image from "next/image";
 import { GetInTouch } from "./GetInTouch";
 import { PoweredBy } from "./PoweredBy";
 import { QuickLinks } from "./QuickLinks";
+import { LegalLinks } from "./LegalLinks";
 
 export default async function Footer() {
   const currentYear = new Date().getFullYear();
@@ -41,9 +42,12 @@ export default async function Footer() {
         </div>
       </div>
       <div className="footer-bottom border-t-1 border-[#222222] page-width">
-        <p className="text-center text-[14px] text-stone-300 py-[20px]">
-          © {currentYear} Trifecta Proximity. All Rights Reserved.
-        </p>
+        <div className="flex gap-[20px] justify-between py-[20px] max-[640px]:flex-col max-[640px]:flex-col-reverse max-[640px]:py-[30px]">
+          <p className="text-center text-[14px] text-stone-300">
+            © {currentYear} Trifecta Proximity. All Rights Reserved.
+          </p>
+          <LegalLinks/>
+        </div>
       </div>
     </footer>
   );

@@ -3,32 +3,19 @@
 import clsx from "clsx";
 import Link from "next/link";
 
-export function QuickLinks() {
+export function LegalLinks() {
     const footerLinks = [
         {
-            label: "Home",
-            href: "/",},
+            label: "Terms of Service",
+            href: "/terms-of-service",},
         {
-            label: "Features",
-            href: "/features",},
-        // {
-        //     label: "Pricing",
-        //     href: "/pricing",},
-        {
-            label: "About",
-            href: "/about-us", },
-        {
-            label: "FAQ",
-            href: "/faq",},
-        {
-            label: "References",
-            href: "/references",},
+            label: "Privacy Policy",
+            href: "/privacy-policy",},
     ];
 
     return (
         <div className="flex flex-col gap-[25px] max-[580px]:gap-[20px]">
-            <span className="footer-label max-[640px]:text-center">Quick Links</span>
-            <ul className="flex flex-col max-[580px]:gap-[20px] gap-[18px] max-[640px]:text-center footer-links">
+            <ul className="flex gap-[20px] justify-center text-center">
             {footerLinks.map((item) => (
                 <NavItem
                     key={item.href}
@@ -53,7 +40,7 @@ function NavItem({ label, href}: FooterProps) {
             href={href}
             className={clsx(
                 "link transition-colors duration-200 ease-in-out",
-                "text-zinc-600 max-[640px]:text-center"
+                "text-zinc-600 !text-[14px] max-[640px]:text-center"
             )}
             >
             {label}
