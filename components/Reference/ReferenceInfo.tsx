@@ -167,53 +167,6 @@ export default async function ReferencesInfo() {
                 </div>
             </div>
 
-            {/* Resources */}
-            <div className="flex items-center">
-                <div className="relative">
-                    <div className="w-[40px] bullet-list-custom-first">
-                        <Image
-                            src={Dot}
-                            alt="Bullet Icon"
-                            className="bullet-icon-custom"
-                        />
-                    </div>
-                </div>
-                <div className="flex flex-col gap-5 ml-[20px] p-[40px] max-[510px]:p-[25px] bg-zinc-950 rounded-[20px]">
-                    <div className="flex flex-col gap-[15px]">
-                        <h2 className="section-headline max-[510px]:!text-[22px]">Free Exercise DB</h2>
-                        <p className="text-zinc-500 description">An open public domain exercise dataset in JSON format, featuring over 800 exercises with a browsable and searchable frontend.
-                        </p>
-                    </div>
-                    <div>
-                        <Link href="https://github.com/yuhonas/free-exercise-db" rel="noopener noreferrer" target="_blank">
-                            <span className="text-zinc-600 hover:text-primary-800 duration-200 ease-in-out">View on Github</span>
-                        </Link>
-                    </div>
-                </div>
-            </div>
-            <div className="flex items-center">
-                <div className="relative">
-                    <div className="w-[40px] bullet-list-custom-last">
-                        <Image
-                            src={Dot}
-                            alt="Bullet Icon"
-                            className="bullet-icon-custom"
-                        />
-                    </div>
-                </div>
-                <div className="flex flex-col gap-5 ml-[20px] p-[40px] max-[510px]:p-[25px] bg-zinc-950 rounded-[20px]">
-                    <div className="flex flex-col gap-[15px]">
-                        <h2 className="section-headline max-[510px]:!text-[22px]"> Exercise GIFs</h2>
-                        <p className="text-zinc-500 description">A comprehensive resource offering a wide variety of exercise GIFs demonstrating proper techniques and movements for various workouts.</p>
-                    </div>
-                    <div>
-                        <Link href="https://fitnessprogramer.com/" rel="noopener noreferrer" target="_blank">
-                            <span className="text-zinc-600 hover:text-primary-800 duration-200 ease-in-out">View on Fitness Programer</span>
-                        </Link>
-                    </div>
-                </div>
-            </div>
-
             {/* Payment Method */}
             <div className="flex items-center">
                 <div className="relative">
