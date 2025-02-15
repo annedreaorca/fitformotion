@@ -1,9 +1,6 @@
-// import { useEffect } from "react";
-// import { Analytics } from "@vercel/analytics/react";
-// import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { Alexandria } from "next/font/google";
-// import { Toaster } from "sonner";
+import Script from "next/script"; // Import Next.js Script component
 import "./globals.css";
 import { Providers } from "./providers";
 
@@ -48,20 +45,29 @@ export default async function RootLayout({
       <body
         className={`${alexandria.className} flex flex-col grow overflow-x-hidden`}
       >
+        {/* Google Tag Manager */}
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-7YY1WM27T9"
+        />
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-7YY1WM27T9', {
+                page_path: window.location.pathname,
+              });
+            `,
+          }}
+        />
+
         <Providers>
-          {/* <Toaster
-            position="top-center"
-            toastOptions={{
-              style: {
-                border: "none",
-                color: "white",
-              },
-            }}
-          /> */}
           {children}
         </Providers>
-        {/* <SpeedInsights />
-        <Analytics /> */}
       </body>
     </html>
   );
