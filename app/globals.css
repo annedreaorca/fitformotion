@@ -16,6 +16,11 @@ html.light {
 nav [data-active="true"] a {
   color: #b91037;
 }
+
+svg.tabler-icon {
+  stroke-width: 1.1px !important;
+}
+
 p,
 p.description {
   font-size: 15px;
@@ -830,4 +835,40 @@ img.gallery-image {
 
 .dropzone-actions button[type='submit']:hover {
   background: var(--primary-hover);
+}
+
+.introjs-tooltip-header {
+  padding-top: 20px !important;
+}
+h1.introjs-tooltip-title {
+  font-family: 'Alexandria' !important;
+  color: #222 !important;
+}
+.introjs-tooltiptext {
+  font-family: 'Alexandria' !important;
+  color: #4b4b4b !important;
+  font-weight: 300 !important;
+  padding: 15px 20px !important;
+}
+.introjs-progressbar {
+  background-color: #991b1be7 !important;
+}
+.introjs-progress {
+  height: 12px !important;
+  margin: 10px 20px 20px 20px !important;
+}
+.introjs-tooltipbuttons {
+  padding: 20px !important;
+}
+.introjs-tooltipbuttons a {
+  padding: 8px 20px !important;
+  font-family: 'Alexandria' !important;
+  border-radius: 5px !important;
+}
+.mobileNav header {
+  justify-content: center !important;
+}
+.mobileNav {
+  padding: 5px 0!important;
+  box-shadow: 0px -5px 20px -10px rgb(83 83 83 / 25%)!important;
 }

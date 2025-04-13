@@ -33,17 +33,20 @@ interface FooterProps {
     href: string;
 }
 
-function NavItem({ label, href}: FooterProps) {
+function NavItem({ label, href }: FooterProps) {
     return (
         <li className="footer-link">
-            <Link
-            href={href}
-            className={clsx(
-                "link transition-colors duration-200 ease-in-out",
-                "text-zinc-600 !text-[14px] max-[640px]:text-center"
-            )}
-            >
-            {label}
+            <Link href={href} legacyBehavior>
+                <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={clsx(
+                        "link transition-colors duration-200 ease-in-out",
+                        "text-zinc-600 !text-[14px] max-[640px]:text-center"
+                    )}
+                >
+                    {label}
+                </a>
             </Link>
         </li>
     );

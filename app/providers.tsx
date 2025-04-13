@@ -1,31 +1,30 @@
 "use client";
-
-import type { ThemeProviderProps } from "next-themes";
-
-import * as React from "react";
-import { NextUIProvider } from "@nextui-org/system";
-import { useRouter } from "next/navigation";
+import { ConfettiProvider } from "@/contexts/ConfettiContext";
+import { ExerciseDetailModalProvider } from "@/contexts/ExerciseDetailModalContext";
+import { SidebarToggleProvider } from "@/contexts/SidebarToggleContext";
+import { WorkoutControlsProvider } from "@/contexts/WorkoutControlsContext";
+import { WorkoutDataProvider } from "@/contexts/WorkoutDataContext";
+import { NextUIProvider } from "@nextui-org/react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 
-export interface ProvidersProps {
-  children: React.ReactNode;
-  themeProps?: ThemeProviderProps;
-}
-
-declare module "@react-types/shared" {
-  interface RouterConfig {
-    routerOptions: NonNullable<
-      Parameters<ReturnType<typeof useRouter>["push"]>[1]
-    >;
-  }
-}
-
-export function Providers({ children, themeProps }: ProvidersProps) {
-  const router = useRouter();
-
+export function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <NextUIProvider navigate={router.push}>
-      <NextThemesProvider {...themeProps}>{children}</NextThemesProvider>
+    <NextUIProvider className="flex flex-col grow">
+      <NextThemesProvider
+        attribute="class"
+        defaultTheme="dark"
+        themes={["light", "dark"]}
+      >
+        <WorkoutControlsProvider>
+          <WorkoutDataProvider>
+            <ExerciseDetailModalProvider>
+              <SidebarToggleProvider>
+                <ConfettiProvider>{children}</ConfettiProvider>
+              </SidebarToggleProvider>
+            </ExerciseDetailModalProvider>
+          </WorkoutDataProvider>
+        </WorkoutControlsProvider>
+      </NextThemesProvider>
     </NextUIProvider>
   );
 }

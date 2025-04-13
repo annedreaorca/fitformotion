@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@nextui-org/button";
+import { IconDownload, IconEye } from "@tabler/icons-react";
 import Image from "next/image";
 import Link from 'next/link';
 import { HeaderLinks } from "./HeaderLinks";
@@ -23,27 +24,26 @@ export default function Header() {
                     <HeaderLinks />
                 </div>
                 <div className="flex justify-end items-center gap-[20px] nav-button w-[40%] max-[1148px]:w-[20%]">
-                    {/* <Button
+                    <Button
                         className="bg-transparent border border-1-zinc-400 text-white max-[1148px]:min-w-[1rem] max-[1148px]:!p-[12px]"
                         as={Link}
                         prefetch={false}
-                        href="/demo/dashboard"
+                        href="/dashboard"
                         size="md"
                     >
                         <IconEye size={18} />
                         <p className="max-[1148px]:hidden text-white">View Demo</p>
-                    </Button> */}
+                    </Button>
                     <Button
                         className="bg-primary-800 text-white max-[1148px]:min-w-[1rem] max-[1148px]:!p-[12px]"
                         as={Link}
                         prefetch={false}
-                        href="#"
-                        // href="https://app.fitformotion.com"
+                        href="https://app.fitformotion.com"
                         size="md"
                         disabled
                     >
-                        {/* <IconDownload size={18} /> */}
-                        <p className="max-[1148px]:hidden text-white">App Coming Soon</p>
+                        <IconDownload size={18} />
+                        <p className="max-[1148px]:hidden text-white">Install Now</p>
                     </Button>
                 </div>
             </div>

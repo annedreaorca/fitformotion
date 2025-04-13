@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Alexandria } from "next/font/google";
 import Script from "next/script"; // Import Next.js Script component
+import { Toaster } from "sonner";
 import "./globals.css";
 import { Providers } from "./providers";
-
 // Viewport settings with zooming disabled
 export function generateViewport() {
   return {
@@ -66,8 +66,19 @@ export default async function RootLayout({
         />
 
         <Providers>
+          <Toaster
+            position="top-center"
+            toastOptions={{
+              style: {
+                border: "none",
+                color: "white",
+              },
+            }}
+          />
           {children}
         </Providers>
+        {/* <SpeedInsights />
+        <Analytics /> */}
       </body>
     </html>
   );
