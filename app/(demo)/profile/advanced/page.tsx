@@ -1,5 +1,5 @@
-import { UserProfile } from "@clerk/nextjs";
+// import { UserProfile } from "@clerk/nextjs";
 
-export default function ProfileClerk() {
-  return <UserProfile />;
-}
+// export default function ProfileClerk() {
+//   return <UserProfile />;
+// }
