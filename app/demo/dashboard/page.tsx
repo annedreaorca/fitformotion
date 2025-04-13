@@ -4,7 +4,7 @@ import PageHeading from "@/components/PageHeading/PageHeading";
 import { IconChevronLeft, IconSettings, IconUser, IconWalk } from "@tabler/icons-react";
 import dynamic from "next/dynamic";
 import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import DashboardCards from "./_components/DashboardCards/DashboardCards";
 import DashboardCharts from "./_components/DashboardCharts/DashboardCharts";
 import DashboardGoals from "./_components/DashboardGoals/DashboardGoals";
@@ -15,7 +15,7 @@ const TourGuide = dynamic(() => import("@/components/TourGuide/DashboardGuide"),
   ssr: false,
 });
 
-export default function DashboardPage() {
+function DashboardContent() {
   // Use the useSearchParams hook to access search parameters
   const searchParams = useSearchParams();
   
@@ -110,5 +110,13 @@ export default function DashboardPage() {
       {/* Only render TourGuide after client-side hydration */}
       <TourGuide autoStart={false} />
     </div>
+  );
+}
+
+export default function DashboardPage() {
+  return (
+    <Suspense fallback={<div className="page-container">Loading dashboard...</div>}>
+      <DashboardContent />
+    </Suspense>
   );
 }
