@@ -1,9 +1,9 @@
 "use client";
-import { ConfettiProvider } from "@/contexts/ConfettiContext";
-import { ExerciseDetailModalProvider } from "@/contexts/ExerciseDetailModalContext";
-import { SidebarToggleProvider } from "@/contexts/SidebarToggleContext";
-import { WorkoutControlsProvider } from "@/contexts/WorkoutControlsContext";
-import { WorkoutDataProvider } from "@/contexts/WorkoutDataContext";
+// import { ConfettiProvider } from "@/contexts/ConfettiContext";
+// import { ExerciseDetailModalProvider } from "@/contexts/ExerciseDetailModalContext";
+// import { SidebarToggleProvider } from "@/contexts/SidebarToggleContext";
+// import { WorkoutControlsProvider } from "@/contexts/WorkoutControlsContext";
+// import { WorkoutDataProvider } from "@/contexts/WorkoutDataContext";
 import { NextUIProvider } from "@nextui-org/react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 
@@ -15,7 +15,8 @@ export function Providers({ children }: { children: React.ReactNode }) {
         defaultTheme="dark"
         themes={["light", "dark"]}
       >
-        <WorkoutControlsProvider>
+        {children}
+        {/* <WorkoutControlsProvider>
           <WorkoutDataProvider>
             <ExerciseDetailModalProvider>
               <SidebarToggleProvider>
@@ -23,7 +24,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
               </SidebarToggleProvider>
             </ExerciseDetailModalProvider>
           </WorkoutDataProvider>
-        </WorkoutControlsProvider>
+        </WorkoutControlsProvider> */}
       </NextThemesProvider>
     </NextUIProvider>
   );
