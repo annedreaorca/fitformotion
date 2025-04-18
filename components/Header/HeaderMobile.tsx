@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { Button } from "@nextui-org/react";
-import { IconBrandFacebookFilled, IconMailFilled, IconMapPinFilled, IconPhoneFilled,IconDownload, IconEye } from "@tabler/icons-react";
+import { IconBrandFacebookFilled, IconDownload, IconEye, IconMailFilled, IconMapPinFilled, IconPhoneFilled } from "@tabler/icons-react";
 import { HeaderLinks } from "./HeaderLinks";
 
 export function HeaderMobile() {

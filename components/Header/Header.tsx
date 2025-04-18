@@ -28,7 +28,7 @@ export default function Header() {
                         className="bg-transparent border border-1-zinc-400 text-white max-[1148px]:min-w-[1rem] max-[1148px]:!p-[12px]"
                         as={Link}
                         prefetch={false}
-                        href="/dashboard"
+                        href="/demo/dashboard"
                         size="md"
                     >
                         <IconEye size={18} />
