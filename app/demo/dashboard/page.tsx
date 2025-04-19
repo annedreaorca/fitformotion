@@ -1,7 +1,7 @@
 "use client";
 import KebabMenu from "@/components/KebabMenu/KebabMenu";
 import PageHeading from "@/components/PageHeading/PageHeading";
-import { IconSettings, IconUser, IconWalk } from "@tabler/icons-react";
+import { IconLogin2, IconSettings, IconUser, IconWalk } from "@tabler/icons-react";
 import dynamic from "next/dynamic";
 import { useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useState } from "react";
@@ -52,7 +52,7 @@ function DashboardContent() {
       href: "https://app.fitformotion.com/dashboard",
     },
     {
-      icon: <IconUser size={22} />,
+      icon: <IconLogin2 size={22} />,
       label: "Login",
       href: "https://app.fitformotion.com",
     },
