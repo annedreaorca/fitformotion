@@ -180,11 +180,11 @@ export default async function ReferencesInfo() {
                 </div>
                 <div className="flex flex-col gap-5 ml-[20px] p-[40px] max-[510px]:p-[25px] bg-zinc-950 rounded-[20px]">
                     <div className="flex flex-col gap-[15px]">
-                        <h2 className="section-headline max-[510px]:!text-[22px]">Xendit Payment Gateway</h2>
-                        <p className="text-zinc-500 description">Comprehensive documentation for the Xendit API, which offers payment processing solutions and features for managing online transactions, integrated within the Fitformotion platform.</p>
+                        <h2 className="section-headline max-[510px]:!text-[22px]">OpenPowerlifting Data Service</h2>
+                        <p className="text-zinc-500 description">OpenPowerlifting is a community service project to create a permanent, open archive of the world's powerlifting data. In support of this mission, all of our data and code are available for download in convenient formats. There is no need to scrape our websites: you can download everything here.</p>
                     </div>
                     <div>
-                        <Link href="https://developers.xendit.co/api-reference/" rel="noopener noreferrer" target="_blank">
+                        <Link href="https://openpowerlifting.gitlab.io/opl-csv/bulk-csv.html" rel="noopener noreferrer" target="_blank">
                             <span className="text-zinc-600 hover:text-primary-800 duration-200 ease-in-out">View on Xendit</span>
                         </Link>
                     </div>

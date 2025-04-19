@@ -1,3 +1,4 @@
+import { Guess } from ".";
 import SidebarBrand from "./SidebarBrand";
 import SidebarNav from "./SidebarNav";
 //import SidebarWorkoutControls from "./SidebarWorkoutControls";
@@ -14,7 +15,7 @@ export default function Sidebar() {
   return (
     <SidebarWrapper>
       <SidebarBrand />
-      <SidebarUser username={username} userImage={userImage} />
+      <SidebarUser username={username} userImage={Guess.src} />
       {/* <SidebarSearch /> */}
       <SidebarNav />
       {/* <SidebarWorkoutControls /> */}

@@ -1,8 +1,8 @@
 "use client";
+import { Guess } from "@/components/Sidebar/index";
 import { useSidebarToggleContext } from "@/contexts/SidebarToggleContext";
 import { Avatar } from "@nextui-org/avatar";
 import { User } from "@nextui-org/user";
-
 export default function SidebarUser({
   username,
   userImage,
@@ -22,7 +22,7 @@ export default function SidebarUser({
               name={username || "Unknown"}
               description="Free Plan"
               avatarProps={{
-                src: userImage || "default-image-url",
+                src: userImage || Guess.src,
               }}
               classNames={{
                 description: "text-zinc-600 dark:text-zinc-400",
@@ -35,7 +35,7 @@ export default function SidebarUser({
               <Avatar
                 showFallback
                 name={username || "Unknown"}
-                src={userImage || "default-image-url"}
+                src={userImage || Guess.src}
               />
             </div>
           )}
