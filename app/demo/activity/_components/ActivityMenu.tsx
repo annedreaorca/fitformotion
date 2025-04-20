@@ -1,6 +1,5 @@
 "use client";
 import { ActivityModalContext } from "@/contexts/ActivityModalContext";
-import { handleDeleteActivity } from "@/server-actions/ActivityServerActions";
 import {
   Dropdown,
   DropdownItem,
@@ -66,14 +65,7 @@ export default function ActivityMenu({ activity }: { activity: Activity }) {
         }, 500);
         return;
       }
-      
-      // Normal mode - call server action
-      const response = await handleDeleteActivity(activityId);
-      if (response.success) {
-        toast.success(response.message);
-      } else {
-        toast.error(response.message);
-      }
+    
     } catch (error) {
       console.error("Error deleting activity:", error);
       toast.error("Failed to delete activity");
