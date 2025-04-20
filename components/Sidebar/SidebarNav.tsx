@@ -34,8 +34,8 @@ export default function SidebarNav() {
         <NavItem
           icon={<IconLayoutDashboard size={22} className="shrink-0" />}
           label="Dashboard"
-          href="/dashboard"
-          active={pathname === "/dashboard"}
+          href="/demo/dashboard"
+          active={pathname === "/demo/dashboard"}
         />
 
         {/* <NavItem
@@ -48,22 +48,22 @@ export default function SidebarNav() {
         <NavItem
           icon={<IconListSearch size={22} className="shrink-0" />}
           label="Browse Exercises"
-          href="/exercises"
-          active={pathname === "/exercises"}
+          href="/demo/exercises"
+          active={pathname === "/demo/exercises"}
         />
 
         <NavItem
           icon={<IconBarbell size={22} className="shrink-0" />}
           label="Start Workout"
-          href="/workout"
-          active={pathname.startsWith("/workout")}
+          href="/demo/workout"
+          active={pathname.startsWith("/demo/workout")}
         />
 
         <NavItem
           icon={<IconHistory size={22} className="shrink-0" />}
           label="Workout History"
-          href="/activity"
-          active={pathname === "/activity"}
+          href="/demo/activity"
+          active={pathname === "/demo/activity"}
         />
 
         {/* <NavItem
@@ -83,15 +83,15 @@ export default function SidebarNav() {
         <NavItem
           icon={<IconBodyScan size={22} className="shrink-0" />}
           label="My Physique"
-          href="/gallery"
-          active={pathname.startsWith("/gallery")}
+          href="/demo/gallery"
+          active={pathname.startsWith("/demo/gallery")}
         />
 
         <NavItem
           icon={<IconMessageChatbot size={22} className="shrink-0" />}
           label="ChatBot"
-          href="/chatbot"
-          active={pathname === "/chatbot"}
+          href="/demo/chatbot"
+          active={pathname === "/demo/chatbot"}
         />
 
         {/* <NavItem

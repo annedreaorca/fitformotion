@@ -14,7 +14,7 @@ export default function SidebarUser({
 
   return (
     <div className={`px-5 mb-4 ${sidebarCollapse ? 'p-0 border-none' : ''}`}>
-      <a href="/profile">
+      <a href="/demo/profile">
         <div className={`flex items-center ${sidebarCollapse ? 'px-0 py-[5px] bg-transparent' : 'px-[10px] py-[5px] bg-gray-200 dark:bg-zinc-800 border-l-2 border-[#991b1b] rounded-[100px]'}`}>
           
           {!sidebarCollapse && (

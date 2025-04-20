@@ -44,7 +44,7 @@ function DashboardContent() {
     {
       icon: <IconUser size={22} />,
       label: "Profile",
-      href: "https://app.fitformotion.com/dashboard",
+      href: "../profile",
     },
     {
       icon: <IconSettings size={22} />,
