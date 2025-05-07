@@ -12,6 +12,9 @@ export function QuickLinks() {
             label: "Features",
             href: "/features",},
         {
+            label: "Coaches",
+            href: "/coaches", },
+        {
             label: "About",
             href: "/about-us", },
         {

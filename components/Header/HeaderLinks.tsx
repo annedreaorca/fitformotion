@@ -16,6 +16,10 @@ export function HeaderLinks() {
         label: "Features",
         href: "/features",
         active: pathname === "/features" },
+    {
+        label: "Coaches",
+        href: "/coaches",
+        active: pathname === "/coaches" },
     // {
     //     label: "Pricing",
     //     href: "/pricing",
