@@ -5,7 +5,7 @@ import "intro.js/minified/introjs.min.css";
 import { useEffect } from "react";
 
 // Function to start the tour (can be called from anywhere)
-export const startTour = () => {
+export const startTour = (): void => {
     const intro = introJs();
     intro.setOptions({
         steps: [
@@ -42,13 +42,20 @@ export const startTour = () => {
     intro.start();
 };
 
+// Props interface for the TourGuide component
+interface TourGuideProps {
+    autoStart?: boolean;
+}
+
 // Optional: Start the tour automatically when the component mounts
-export default function TourGuide({ autoStart = false }) {
+const TourGuide: React.FC<TourGuideProps> = ({ autoStart = false }) => {
     useEffect(() => {
         if (autoStart) {
-        startTour();
+            startTour();
         }
     }, [autoStart]);
 
-  return null; // This component doesn't render anything
-}
+    return null; // This component doesn't render anything
+};
+
+export default TourGuide;

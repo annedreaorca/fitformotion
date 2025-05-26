@@ -1,38 +1,38 @@
 "use client";
-
 import { IconHourglass } from "@tabler/icons-react";
-import { subDays } from "date-fns";
+import { useEffect, useState } from "react";
 import DashboardCardTemplate from "./DashboardCardTemplate";
 
-// Dummy data: 10 workouts over the past 30 days
-const dummyWorkouts = [
-  { duration: 45 }, // in minutes
-  { duration: 60 },
-  { duration: 30 },
-  { duration: 50 },
-  { duration: 70 },
-  { duration: 40 },
-  { duration: 65 },
-  { duration: 55 },
-  { duration: 35 },
-  { duration: 50 },
-];
-
 export default function DashboardCardAverageWorkoutDuration() {
-  const thirtyDaysAgo = subDays(new Date(), 30);
-
-  // Simulate filtering data that happened within the last 30 days
-  const recentWorkouts = dummyWorkouts; // you can add `createdAt` in dummy data if you want date filtering
-
-  const totalDuration = recentWorkouts.reduce(
-    (total, workout) => total + workout.duration,
-    0
-  );
-
-  const averageDuration =
-    recentWorkouts.length > 0
-      ? Math.round(totalDuration / recentWorkouts.length)
-      : 0;
+  // Use state to manage the average duration
+  const [averageDuration, setAverageDuration] = useState(0);
+  
+  useEffect(() => {
+    // Simulate data fetching
+    const fetchWorkoutData = () => {
+      // Mock workout data - randomly generate between 10-15 workout durations
+      const mockWorkouts = Array.from({ length: Math.floor(Math.random() * 6) + 10 }, () => ({
+        duration: Math.floor(Math.random() * 90) + 30, // Random duration between 30-120 minutes
+      }));
+      
+      // Calculate average duration from mock data
+      const totalDuration = mockWorkouts.reduce((total, workout) => {
+        return total + workout.duration;
+      }, 0);
+      
+      const calculatedAverage = 
+        mockWorkouts.length > 0 ? Math.round(totalDuration / mockWorkouts.length) : 0;
+      
+      setAverageDuration(calculatedAverage);
+    };
+    
+    fetchWorkoutData();
+    
+    // Optional: Simulate refresh of data every 30 seconds for demo purposes
+    const intervalId = setInterval(fetchWorkoutData, 30000);
+    
+    return () => clearInterval(intervalId);
+  }, []);
 
   return (
     <DashboardCardTemplate

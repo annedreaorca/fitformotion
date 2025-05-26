@@ -1,82 +1,82 @@
 import { Suspense } from "react";
-//import DashboardChartExerciseCategoryDistribution from "./DashboardChartExerciseCategoryDistribution";
 import {
   IconBarbell,
   IconChartAreaFilled,
-  IconChartBar
+  IconChartBar,
+  IconChartRadar
 } from "@tabler/icons-react";
 import DashboardChartCard from "./DashboardChartCard";
-import DashboardChartProgressOverTime from "./DashboardChartProgressOverTime";
 import DashboardChartWeightProgress from "./DashboardChartWeightProgress";
 import DashboardChartWorkoutFrequency from "./DashboardChartWorkoutFrequency";
+import DashboardChartExerciseMuscleDistribution from "./DashboardChartExerciseMuscleDistribution";
+import DashboardAverageWorkoutTime from "./DashboardAverageWorkoutTime";
 
 export default function DashboardCharts({
   chart1DateRange,
-  chart2DateRange,
   chart3DateRange,
   chart4DateRange,
+  isAdvancedView = false,
 }: {
   chart1DateRange?: string;
   chart2DateRange?: string;
   chart3DateRange?: string;
   chart4DateRange?: string;
+  isAdvancedView?: boolean;
 }) {
+  // If not in advanced view, don't render any charts
+  if (!isAdvancedView) {
+    return null;
+  }
+
+  // Only render charts in advanced view
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-3 mb-3">
+    <div className="grid grid-cols-1 lg:grid-cols-4 gap-3 mb-3">
       <DashboardChartCard
         icon={<IconChartBar className="text-primary" />}
-        title="My Workout Frequency"
-        colSpan="col-span-2 lg:col-span-4 xl:col-span-2"
+        title="Workout Frequency"
+        colSpan="col-span-1"
         chartId={1}
+        showDateRange={true}
       >
         <Suspense fallback={<div>Loading Chart...</div>}>
-          <DashboardChartWorkoutFrequency dateRange={chart1DateRange} />
+          <DashboardChartWorkoutFrequency />
         </Suspense>
       </DashboardChartCard>
 
       <DashboardChartCard
         icon={<IconChartAreaFilled className="text-primary" />}
-        title="My Lift Progress"
-        colSpan="col-span-2"
-        chartId={2}
+        title="Average Workout Time"
+        colSpan="col-span-1"
+        chartId={3}
+        showDateRange={true}
       >
         <Suspense fallback={<div>Loading Chart...</div>}>
-          <DashboardChartProgressOverTime dateRange={chart2DateRange} />
+          <DashboardAverageWorkoutTime dateRange={chart3DateRange} />
         </Suspense>
       </DashboardChartCard>
-
-      {/* <DashboardChartCard
-        icon={<IconChartLine className="text-danger" />}
-        title="Volume Load"
-        colSpan="col-span-2"
-        chartId={3}
-      >
-        <Suspense fallback={<div>Loading Chart...</div>}>
-          <DashboardChartVolumeLoad dateRange={chart3DateRange} />
-        </Suspense>
-      </DashboardChartCard> */}
 
       <DashboardChartCard
-        icon={<IconBarbell  className="text-primary"/>}
-        title="My Weight Progress"
-        colSpan="col-span-2"
-        chartId={2}
+        icon={<IconBarbell className="text-primary"/>}
+        title="Weight Progress"
+        colSpan="col-span-1"
+        chartId={4}
+        showDateRange={true}
       >
         <Suspense fallback={<div>Loading Chart...</div>}>
-          <DashboardChartWeightProgress dateRange={chart2DateRange} />
+          <DashboardChartWeightProgress dateRange={chart4DateRange} />
         </Suspense>
       </DashboardChartCard>
 
-      {/* <DashboardChartCard 
-        icon={<IconChartRadar />} 
+      <DashboardChartCard 
+        icon={<IconChartRadar className="text-primary" />} 
         title='Exercise Split' 
-        colSpan="col-span-2" 
-        chartId={4}
+        colSpan="col-span-1" 
+        chartId={5}
       >
         <Suspense fallback={<div>Loading Chart...</div>}>
-          <DashboardChartExerciseCategoryDistribution dateRange={chart4DateRange} />
+          <DashboardChartExerciseMuscleDistribution dateRange={chart4DateRange} />
         </Suspense>
-      </DashboardChartCard> */}
+      </DashboardChartCard>
     </div>
   );
 }

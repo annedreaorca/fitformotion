@@ -1,5 +1,5 @@
 import { Card, CardBody, CardHeader } from "@nextui-org/card";
-// import DeleteDashboardGoal from "./DeleteDashboardGoal";
+import DeleteDashboardGoal from "./DeleteDashboardGoal";
 
 export default function DashboardGoalTemplate({
   children,
@@ -21,7 +21,7 @@ export default function DashboardGoalTemplate({
           {icon}
           {title}
         </div>
-        {/* {showSettings && id && <DeleteDashboardGoal id={id} />} */}
+        {showSettings && id && <DeleteDashboardGoal id={id} />}
       </CardHeader>
       <CardBody className="px-3 pt-0 relative">
         <div className="mb-3">{children}</div>

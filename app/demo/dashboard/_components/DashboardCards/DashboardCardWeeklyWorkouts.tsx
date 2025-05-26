@@ -1,29 +1,53 @@
 "use client";
-
 import { IconCalendarWeek } from "@tabler/icons-react";
+import { useEffect, useState } from "react";
 import DashboardCardTemplate from "./DashboardCardTemplate";
 
-// Dummy workout logs from the past 7 days
-const dummyWorkoutLogs = [
-  { createdAt: new Date("2025-04-12") }, // today
-  { createdAt: new Date("2025-04-11") }, // yesterday
-  { createdAt: new Date("2025-04-09") },
-  { createdAt: new Date("2025-04-07") },
-];
-
 export default function DashboardCardWeeklyWorkouts() {
-  // Filter the workouts to include only those in the last 7 days
-  const last7DaysWorkouts = dummyWorkoutLogs.filter(workout => {
-    const sevenDaysAgo = new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000);
-    return workout.createdAt >= sevenDaysAgo;
-  });
+  const [workoutCount, setWorkoutCount] = useState<number>(0);
+
+  useEffect(() => {
+    // Function to generate realistic mock workout data
+    const generateMockWorkoutCount = () => {
+      // Most active users work out 3-5 times a week
+      // Less active might do 1-2
+      // Highly active might do 6-7
+      // We'll weight it towards the middle
+      
+      const userActivityLevel = Math.random(); // Random number between 0 and 1
+      
+      let weeklyWorkouts: number;
+      
+      if (userActivityLevel < 0.15) {
+        // Less active user (15% chance)
+        weeklyWorkouts = Math.floor(Math.random() * 2) + 1; // 1-2 workouts
+      } else if (userActivityLevel < 0.85) {
+        // Average active user (70% chance)
+        weeklyWorkouts = Math.floor(Math.random() * 3) + 3; // 3-5 workouts
+      } else {
+        // Highly active user (15% chance)
+        weeklyWorkouts = Math.floor(Math.random() * 2) + 6; // 6-7 workouts
+      }
+      
+      setWorkoutCount(weeklyWorkouts);
+    };
+    
+    // Generate initial data
+    generateMockWorkoutCount();
+    
+    // Optionally, set up a timer to refresh data periodically for demo purposes
+    const intervalId = setInterval(generateMockWorkoutCount, 40000);
+    
+    // Clean up interval on component unmount
+    return () => clearInterval(intervalId);
+  }, []);
 
   return (
     <DashboardCardTemplate
       title="Weekly Workouts"
       icon={<IconCalendarWeek className="text-primary" />}
     >
-      {last7DaysWorkouts.length}
+      {workoutCount}
     </DashboardCardTemplate>
   );
 }
