@@ -4,14 +4,14 @@ import PageHeading from "@/components/PageHeading/PageHeading";
 import { IconLogin2, IconSettings, IconUser, IconWalk } from "@tabler/icons-react";
 import dynamic from "next/dynamic";
 import { useSearchParams } from 'next/navigation';
-import { Suspense, useCallback, useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import DashboardCards from "./_components/DashboardCards/DashboardCards";
 import DashboardCharts from "./_components/DashboardCharts/DashboardCharts";
 import DashboardGoals from "./_components/DashboardGoals/DashboardGoals";
 import DashboardLinks from "./_components/DashboardLinks";
 import DashboardRecentActivity from "./_components/DashboardRecentActivity";
 
-// Import the components dynamically with proper error boundaries
+// Import the components dynamically to ensure they're client-side rendered
 const DashboardViewToggle = dynamic(() => import("./_components/DashboardViewToggle"), { 
   ssr: false,
   loading: () => <div>Loading toggle...</div>
@@ -25,66 +25,23 @@ const DashboardBeginnerCharts = dynamic(
   }
 );
 
-// Create a separate component for the tour functionality
-interface TourButtonProps {
-  onStartTour: () => void;
-}
-
-const TourButton: React.FC<TourButtonProps> = ({ onStartTour }) => {
-  return (
-    <button
-      onClick={onStartTour}
-      className="p-[5px] bg-zinc-800 text-white rounded-full hover:bg-zinc-700 w-10 h-10 flex items-center justify-center"
-    >
-      <IconWalk size={22} />
-    </button>
-  );
-};
-
-// Separate component for TourGuide to isolate the dynamic import
-interface TourGuideWrapperProps {
-  autoStart: boolean;
-}
-
-const TourGuideWrapper: React.FC<TourGuideWrapperProps> = ({ autoStart }) => {
-  const [TourGuideComponent, setTourGuideComponent] = useState<React.ComponentType<{ autoStart: boolean }> | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    let isMounted = true;
-    
-    const loadTourGuide = async () => {
-      try {
-        const module = await import("@/components/TourGuide/DashboardGuide");
-        if (isMounted) {
-          setTourGuideComponent(() => module.default);
-          setIsLoading(false);
-        }
-      } catch (error) {
-        console.error("Failed to load TourGuide:", error);
-        if (isMounted) {
-          setIsLoading(false);
-        }
-      }
-    };
-
-    loadTourGuide();
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
-  if (isLoading || !TourGuideComponent) {
-    return null;
-  }
-
-  return <TourGuideComponent autoStart={autoStart} />;
-};
+// Load TourGuide on client only
+const TourGuide = dynamic(() => import("@/components/TourGuide/DashboardGuide"), {
+  ssr: false,
+  loading: () => null
+});
 
 function DashboardContent() {
+  // Use the useSearchParams hook to access search parameters
   const searchParams = useSearchParams();
+  
+  // Use a ref to track initial render
   const initialRenderDone = useRef(false);
+  
+  // Properly type the tour module ref
+  const tourModuleRef = useRef<any>(null);
+ 
+  // Client-side only state
   const [isMounted, setIsMounted] = useState(false);
   const [chartParams, setChartParams] = useState({
     chart1: "1W",
@@ -93,19 +50,29 @@ function DashboardContent() {
     chart4: "1W"
   });
   const [isAdvancedView, setIsAdvancedView] = useState(false);
-
-  // Handle initial mount
+ 
+  // Handle initial mount - runs only once
   useEffect(() => {
     setIsMounted(true);
+    
+    // Pre-load the tour module without triggering it
+    import("@/components/TourGuide/DashboardGuide")
+      .then(module => {
+        tourModuleRef.current = module;
+      })
+      .catch(err => console.error("Failed to preload tour module:", err));
   }, []);
 
-  // Handle URL params with useCallback to prevent unnecessary re-renders
-  const updateFromSearchParams = useCallback(() => {
+  // Handle URL params - separated from mount effect
+  useEffect(() => {
+    // Skip during SSR
     if (!isMounted) return;
-
+    
+    // Skip first client-side render to avoid double initialization
     if (!initialRenderDone.current) {
       initialRenderDone.current = true;
       
+      // Initialize state from URL params once
       const chart1 = searchParams.get('chart1') || "1W";
       const chart2 = searchParams.get('chart2') || "1W";
       const chart3 = searchParams.get('chart3') || "1W";
@@ -123,45 +90,30 @@ function DashboardContent() {
       return;
     }
     
+    // For subsequent param changes, compare before updating
     const newChart1 = searchParams.get('chart1') || "1W";
     const newChart2 = searchParams.get('chart2') || "1W";
     const newChart3 = searchParams.get('chart3') || "1W";
     const newChart4 = searchParams.get('chart4') || "1W";
     const newAdvancedView = searchParams.get('view') === "advanced";
     
-    setChartParams(prev => {
-      if (prev.chart1 !== newChart1 || 
-          prev.chart2 !== newChart2 || 
-          prev.chart3 !== newChart3 || 
-          prev.chart4 !== newChart4) {
-        return {
-          chart1: newChart1,
-          chart2: newChart2,
-          chart3: newChart3,
-          chart4: newChart4
-        };
-      }
-      return prev;
-    });
-    
-    setIsAdvancedView(prev => prev !== newAdvancedView ? newAdvancedView : prev);
-  }, [searchParams, isMounted]);
-
-  useEffect(() => {
-    updateFromSearchParams();
-  }, [updateFromSearchParams]);
-
-  // Tour handler without dynamic imports in the handler
-  const handleStartTour = useCallback(async () => {
-    try {
-      const module = await import("@/components/TourGuide/DashboardGuide");
-      if (module.startTour) {
-        module.startTour();
-      }
-    } catch (error) {
-      console.error("Failed to start tour:", error);
+    // Only update if values actually changed
+    if (chartParams.chart1 !== newChart1 || 
+        chartParams.chart2 !== newChart2 || 
+        chartParams.chart3 !== newChart3 || 
+        chartParams.chart4 !== newChart4) {
+      setChartParams({
+        chart1: newChart1,
+        chart2: newChart2,
+        chart3: newChart3,
+        chart4: newChart4
+      });
     }
-  }, []);
+    
+    if (isAdvancedView !== newAdvancedView) {
+      setIsAdvancedView(newAdvancedView);
+    }
+  }, [searchParams, isMounted]);
 
   const menuItems = [
     {
@@ -181,9 +133,27 @@ function DashboardContent() {
     },
   ];
 
+  // Move startTour inside the component
+  const handleStartTour = () => {
+    // Use the pre-loaded module if available
+    if (tourModuleRef.current) {
+      tourModuleRef.current.startTour();
+    } else {
+      // Fallback if module isn't loaded yet
+      import("@/components/TourGuide/DashboardGuide")
+        .then((module) => {
+          tourModuleRef.current = module;
+          module.startTour();
+        })
+        .catch((error) => {
+          console.error("Failed to load tour guide:", error);
+        });
+    }
+  };
+
   // Return simple placeholder during server rendering
   if (!isMounted) {
-    return <div className="page-container">Loading dashboard...</div>;
+    return <div className="page-container"></div>;
   }
 
   return (
@@ -194,7 +164,12 @@ function DashboardContent() {
         </div>
         <div className="flex gap-[10px] items-center">
           <DashboardViewToggle />
-          <TourButton onStartTour={handleStartTour} />
+          <button
+            onClick={handleStartTour}
+            className="p-[5px] bg-zinc-800 text-white rounded-full hover:bg-zinc-700 w-10 h-10 flex items-center justify-center"
+          >
+            <IconWalk size={22} />
+          </button>
           <KebabMenu
             items={menuItems}
             header="Menu"
@@ -207,7 +182,7 @@ function DashboardContent() {
       <div id="dashboard-cards">
         <DashboardCards isAdvancedView={isAdvancedView} />
       </div>
-      
+      {/* Render different chart components based on view mode */}
       <div id="dashboard-charts">
         {isAdvancedView ? (
           <DashboardCharts
@@ -218,9 +193,10 @@ function DashboardContent() {
             isAdvancedView={isAdvancedView}
           />
         ) : (
-          <Suspense fallback={<div>Loading beginner charts...</div>}>
+          <div>
+            {/* We're not using Suspense here directly */}
             <DashboardBeginnerCharts />
-          </Suspense>
+          </div>
         )}
       </div>
       
@@ -233,16 +209,18 @@ function DashboardContent() {
       </div>
 
       <div>
+        {/* No direct Suspense in the client component */}
         <DashboardRecentActivity isAdvancedView={isAdvancedView} />
       </div>
       
-      {/* Wrap TourGuide in its own component to isolate the dynamic import */}
-      <TourGuideWrapper autoStart={false} />
+      {/* Only render TourGuide after client-side hydration */}
+      <TourGuide autoStart={false} />
     </div>
   );
 }
 
 export default function DashboardPage() {
+  // Move Suspense to the outer component
   return (
     <Suspense fallback={<div className="page-container">Loading dashboard...</div>}>
       <DashboardContent />
