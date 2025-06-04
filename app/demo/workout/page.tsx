@@ -1,4 +1,5 @@
 "use client";
+import { startTour } from "@/components/TourGuide/StartWorkoutGuide";
 import { Button } from "@nextui-org/button";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/modal";
@@ -448,10 +449,6 @@ const PageHeading = ({ title }: { title: string }) => (
   <h1 className="text-2xl font-bold text-zinc-900 dark:text-white">{title}</h1>
 );
 
-// Mock tour start function
-const startTour = () => {
-  console.log('Starting tour...');
-};
 
 // Main Page Component
 export default function WorkoutPage() {
@@ -479,11 +476,11 @@ export default function WorkoutPage() {
         </div>
         <div className="flex gap-[10px] items-center">
           <button
-            onClick={startTour}
-            className="p-[5px] bg-zinc-800 text-white rounded-full hover:bg-zinc-700 w-10 h-10 flex items-center justify-center"
-          >
-            <IconWalk size={22} />
-          </button>
+          onClick={startTour}
+          className="p-[5px] bg-zinc-800 text-white rounded-full hover:bg-zinc-700 w-10 h-10 flex items-center justify-center"
+        >
+          <IconWalk size={22} />
+        </button>
           <Button
             color="primary"
             className="gap-unit-1"

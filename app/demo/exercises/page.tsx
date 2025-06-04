@@ -1,8 +1,8 @@
 "use client";
 import { Button } from "@nextui-org/button";
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@nextui-org/modal";
-import { IconUser, IconMail } from "@tabler/icons-react";
-import { useState, useEffect } from 'react';
+import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/modal";
+import { IconMail, IconUser } from "@tabler/icons-react";
+import { useEffect, useState } from 'react';
 
 // Registration Prompt Modal Component
 const RegisterPromptModal = ({ 
@@ -26,7 +26,7 @@ const RegisterPromptModal = ({
     >
       <ModalContent>
         <ModalHeader className="flex flex-col gap-1 text-center pb-2">
-          <div className="mx-auto w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mb-2">
+          <div className="mx-auto w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center mb-2">
             <IconUser size={28} className="text-white" />
           </div>
           <h3 className="text-xl font-bold text-zinc-900 dark:text-white">
@@ -48,13 +48,13 @@ const RegisterPromptModal = ({
               "Track your exercise mastery progress"
             ].map((benefit, index) => (
               <div key={index} className="flex items-center gap-3">
-                <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex-shrink-0"></div>
+                <div className="w-2 h-2 bg-[#961d1b] rounded-full flex-shrink-0"></div>
                 <span className="text-zinc-700 dark:text-zinc-300 text-sm">{benefit}</span>
               </div>
             ))}
           </div>
           
-          <div className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/20 dark:to-purple-950/20 rounded-lg border border-blue-200 dark:border-blue-800">
+          <div className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-red-950/20 dark:to-red-950/20 rounded-lg border border-red-200 dark:border-red-800">
             <p className="text-center text-sm text-zinc-600 dark:text-zinc-400">
               <strong className="text-zinc-900 dark:text-white">100% Free</strong> • No credit card required • Get started in 30 seconds
             </p>
@@ -65,7 +65,7 @@ const RegisterPromptModal = ({
           <Button
             color="primary"
             size="lg"
-            className="w-full font-semibold bg-gradient-to-r from-blue-600 to-purple-600 text-white"
+            className="w-full font-semibold bg-[#961d1b] text-white"
             startContent={<IconMail size={18} />}
             as="a"
             href="https://app.fitformotion.com"
@@ -116,7 +116,7 @@ export default function ExercisesPage() {
         <Button
           color="primary"
           onPress={() => setIsRegisterModalOpen(true)}
-          className="bg-gradient-to-r from-blue-600 to-purple-600 text-white"
+          className="bg-[#961d1b] text-white"
         >
           Browse Exercises
         </Button>
