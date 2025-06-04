@@ -1,9 +1,8 @@
 "use client";
 import { EquipmentType, handleUpdateUserEquipment } from "@/server-actions/UserServerActions";
-import { Button } from "@nextui-org/button";
-import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
+import { Card, CardBody, CardHeader } from "@nextui-org/card";
 import { Checkbox, CheckboxGroup } from "@nextui-org/checkbox";
-import { IconBarbell, IconDeviceFloppy } from "@tabler/icons-react";
+import { IconBarbell } from "@tabler/icons-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -72,7 +71,7 @@ export default function ProfileEquipment({ equipment }: ProfileEquipmentProps) {
           ))}
         </CheckboxGroup>
       </CardBody>
-      <CardFooter className="px-5">
+      {/* <CardFooter className="px-5">
         <Button
           variant="flat"
           onPress={handleSubmit}
@@ -81,7 +80,7 @@ export default function ProfileEquipment({ equipment }: ProfileEquipmentProps) {
         >
           Save
         </Button>
-      </CardFooter>
+      </CardFooter> */}
     </Card>
   );
 }

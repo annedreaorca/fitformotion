@@ -1,8 +1,9 @@
+// Demo Profile Page
+
 "use client";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher/ThemeSwitcher";
 import { startTour } from "@/components/TourGuide/ProfileGuide";
-import { Button } from "@nextui-org/react";
-import { IconLogout, IconWalk } from "@tabler/icons-react";
+import { IconWalk } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import ProfileDetails from "./_components/ProfileDetails";
 import ProfileEquipment from "./_components/ProfileEquipment";
@@ -116,7 +117,7 @@ export default function ProfilePage() {
           lastName={user.lastName}
         />
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mb-5">
+      <div className="grid grid-cols-1 lg:grid-cols-1 gap-3 mb-5">
         <div id="profile-measurements">
           <ProfileMeasurements userMeasurements={measurements} />
         </div>
@@ -124,11 +125,12 @@ export default function ProfilePage() {
           <ProfileEquipment equipment={equipment} />
         </div>
       </div>
-      <div id="profile-actions">
+      
+      {/* <div id="profile-actions">
         <Button variant="flat" disabled>
           <IconLogout /> Sign out
         </Button>
-      </div>
+      </div> */}
     </>
   );
 }

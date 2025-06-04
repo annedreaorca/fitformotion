@@ -1,9 +1,8 @@
 "use client";
 import { Button } from "@nextui-org/button";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
-import { Chip } from "@nextui-org/chip";
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@nextui-org/modal";
-import { IconDots, IconPlayerPlayFilled, IconPlus, IconWalk, IconX, IconUser, IconMail } from "@tabler/icons-react";
+import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/modal";
+import { IconDots, IconMail, IconPlayerPlayFilled, IconPlus, IconUser, IconWalk } from "@tabler/icons-react";
 import { useState } from 'react';
 
 // Helper function to format date (replacing date-fns)
@@ -394,7 +393,7 @@ const RoutineCard = ({
           )}
         </Button>
         
-        <div className="flex flex-wrap gap-1 mt-3">
+        {/* <div className="flex flex-wrap gap-1 mt-3">
           {Array.from(uniqueCategories as Set<string>).map(
             (category: string, index: number) => (
               <Chip
@@ -411,7 +410,7 @@ const RoutineCard = ({
               </Chip>
             ),
           )}
-        </div>
+        </div> */}
       </CardFooter>
     </Card>
   );
