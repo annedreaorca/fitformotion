@@ -426,23 +426,23 @@ export default async function DashboardRecentActivity({
                       ))}
                     </ul>
                     
-                    {isAdvancedView && (
+                    {/* {isAdvancedView && (
                       <div className="mt-3">
                         <Link href={`/activity/${activity.id}`} className="text-sm text-primary hover:underline">
                           View Details
                         </Link>
                       </div>
-                    )}
+                    )} */}
                   </CardBody>
                 </Card>
               );
             })}
           </div>
-          <div className="flex justify-center">
+          {/* <div className="flex justify-center">
             <Button as={Link} href="/activity">
               View all activity
             </Button>
-          </div>
+          </div> */}
         </>
       )}
     </>

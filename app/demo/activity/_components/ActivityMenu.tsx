@@ -112,7 +112,7 @@ export default function ActivityMenu({ activity }: { activity: Activity }) {
         }
         onAction={(key) => handleAction(String(key), activity)}
       >
-        <DropdownSection showDivider>
+        <DropdownSection>
           <DropdownItem
             startContent={<IconInfoCircle size={20} />}
             key="details"
@@ -122,18 +122,18 @@ export default function ActivityMenu({ activity }: { activity: Activity }) {
           {/* <DropdownItem startContent={<IconEdit size={20} />} key="edit">
             Edit
           </DropdownItem> */}
-          <DropdownItem startContent={<IconShare size={20} />} key="share">
+          {/* <DropdownItem startContent={<IconShare size={20} />} key="share">
             Share (Coming Soon)
-          </DropdownItem>
+          </DropdownItem> */}
         </DropdownSection>
-        <DropdownItem
+        {/* <DropdownItem
           startContent={<IconTrash size={20} />}
           key="delete"
           className="text-danger"
           color="danger"
         >
           Delete Activity
-        </DropdownItem>
+        </DropdownItem> */}
       </DropdownMenu>
     </Dropdown>
   );

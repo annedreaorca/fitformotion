@@ -170,12 +170,12 @@ function DashboardContent() {
           >
             <IconWalk size={22} />
           </button>
-          <KebabMenu
+          {/* <KebabMenu
             items={menuItems}
             header="Menu"
             footer={<div className="p-2">User Profile Actions</div>}
             itemClassName="hover:bg-blue-100"
-          />
+          /> */}
         </div>
       </div>
       

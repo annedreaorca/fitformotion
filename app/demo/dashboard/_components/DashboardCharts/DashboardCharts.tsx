@@ -36,7 +36,7 @@ export default function DashboardCharts({
         title="Workout Frequency"
         colSpan="col-span-1"
         chartId={1}
-        showDateRange={true}
+        showDateRange={false}
       >
         <Suspense fallback={<div>Loading Chart...</div>}>
           <DashboardChartWorkoutFrequency />
@@ -72,6 +72,7 @@ export default function DashboardCharts({
         title='Exercise Split' 
         colSpan="col-span-1" 
         chartId={5}
+        showDateRange={false}
       >
         <Suspense fallback={<div>Loading Chart...</div>}>
           <DashboardChartExerciseMuscleDistribution dateRange={chart4DateRange} />

@@ -2,10 +2,18 @@
 import { Button } from "@nextui-org/button";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { Chip } from "@nextui-org/chip";
-import { IconDots, IconPlayerPlayFilled, IconPlus, IconWalk } from "@tabler/icons-react";
-import { format } from "date-fns";
-import Link from 'next/link';
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@nextui-org/modal";
+import { IconDots, IconPlayerPlayFilled, IconPlus, IconWalk, IconX, IconUser, IconMail } from "@tabler/icons-react";
 import { useState } from 'react';
+
+// Helper function to format date (replacing date-fns)
+const formatDate = (date: Date) => {
+  return date.toLocaleDateString('en-US', {
+    month: '2-digit',
+    day: '2-digit',
+    year: 'numeric'
+  });
+};
 
 // Type definitions
 type Exercise = {
@@ -186,7 +194,7 @@ type Color =
   | "primary"
   | "danger";
 
-// Category color mapping (matching your original)
+// Category color mapping
 const categoryColorMap: Record<string, Color> = {
   strength: "success",
   cardio: "secondary",
@@ -197,6 +205,112 @@ const categoryColorMap: Record<string, Color> = {
   olympic_weightlifting: "secondary",
 };
 
+// Registration Prompt Modal Component
+const RegisterPromptModal = ({ 
+  isOpen, 
+  onClose, 
+  actionType 
+}: { 
+  isOpen: boolean; 
+  onClose: () => void; 
+  actionType: 'workout' | 'create';
+}) => {
+  const getContent = () => {
+    if (actionType === 'workout') {
+      return {
+        title: "Ready to Start Your Workout?",
+        subtitle: "Create your free account to track your progress and save your workouts!",
+        benefits: [
+          "Track your workout progress",
+          "Save and create custom routines",
+          "Monitor your fitness goals",
+          "Access workout history"
+        ]
+      };
+    } else {
+      return {
+        title: "Create Your Own Routine",
+        subtitle: "Join thousands of users building personalized workout routines!",
+        benefits: [
+          "Build custom workout routines",
+          "Choose from 500+ exercises",
+          "Set personalized goals",
+          "Track your improvements"
+        ]
+      };
+    }
+  };
+
+  const content = getContent();
+
+  return (
+    <Modal 
+      isOpen={isOpen} 
+      onClose={onClose}
+      size="md"
+      classNames={{
+        backdrop: "bg-gradient-to-t from-zinc-900/50 to-zinc-900/10 backdrop-blur-sm",
+        base: "border-[1px] border-zinc-200 dark:border-zinc-700",
+        header: "border-b-[1px] border-zinc-200 dark:border-zinc-700",
+        footer: "border-t-[1px] border-zinc-200 dark:border-zinc-700",
+      }}
+    >
+      <ModalContent>
+        <ModalHeader className="flex flex-col gap-1 text-center pb-2">
+          <div className="mx-auto w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mb-2">
+            <IconUser size={28} className="text-white" />
+          </div>
+          <h3 className="text-xl font-bold text-zinc-900 dark:text-white">
+            {content.title}
+          </h3>
+          <p className="text-sm text-zinc-600 dark:text-zinc-400 font-normal">
+            {content.subtitle}
+          </p>
+        </ModalHeader>
+        
+        <ModalBody className="py-4">
+          <div className="space-y-3">
+            {content.benefits.map((benefit, index) => (
+              <div key={index} className="flex items-center gap-3">
+                <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex-shrink-0"></div>
+                <span className="text-zinc-700 dark:text-zinc-300 text-sm">{benefit}</span>
+              </div>
+            ))}
+          </div>
+          
+          <div className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/20 dark:to-purple-950/20 rounded-lg border border-blue-200 dark:border-blue-800">
+            <p className="text-center text-sm text-zinc-600 dark:text-zinc-400">
+              <strong className="text-zinc-900 dark:text-white">100% Free</strong> • No credit card required • Get started in 30 seconds
+            </p>
+          </div>
+        </ModalBody>
+        
+        <ModalFooter className="flex flex-col gap-2 pt-2">
+          <Button
+            color="primary"
+            size="lg"
+            className="w-full font-semibold bg-gradient-to-r from-blue-600 to-purple-600 text-white"
+            startContent={<IconMail size={18} />}
+            as="a"
+            href="https://app.fitformotion.com"
+            target="_blank"
+          >
+            Sign Up Free
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="w-full text-zinc-600 dark:text-zinc-400"
+            onPress={onClose}
+          >
+            Maybe Later
+          </Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
+  );
+};
+
 // Mock RoutineMenu component
 const RoutineMenu = ({ routineId }: { routineId: string }) => (
   <button className="p-1 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded">
@@ -204,15 +318,17 @@ const RoutineMenu = ({ routineId }: { routineId: string }) => (
   </button>
 );
 
-// Individual Card Component (matching your exact structure)
+// Individual Card Component
 const RoutineCard = ({ 
   routine, 
   isSystem, 
-  activeWorkoutRoutine
+  activeWorkoutRoutine,
+  onWorkoutStart
 }: {
   routine: ExtendedWorkoutPlan;
   isSystem: boolean;
   activeWorkoutRoutine: string | null;
+  onWorkoutStart: () => void;
 }) => {
   const isAnotherWorkoutInProgress = activeWorkoutRoutine !== null && activeWorkoutRoutine !== routine.id;
   const isCurrentWorkout = activeWorkoutRoutine === routine.id;
@@ -234,7 +350,7 @@ const RoutineCard = ({
           </p>
           {!isSystem && (
             <p className="text-[13px] text-zinc-600 dark:text-zinc-400">
-              Updated: {format(new Date(routine.updatedAt), "MM/dd/yyyy")}
+              Updated: {formatDate(new Date(routine.updatedAt))}
             </p>
           )}
         </div>
@@ -258,11 +374,10 @@ const RoutineCard = ({
       <CardFooter className="pt-0 px-5 pb-4 block">
         <Button
           variant="flat"
-          as={Link}
-          href="https://super-mosquito-26.accounts.dev/sign-in"
           size="sm"
           className="gap-unit-1 mt-[5px]"
           isDisabled={isAnotherWorkoutInProgress}
+          onPress={onWorkoutStart}
         >
           {isCurrentWorkout ? (
             <>
@@ -305,10 +420,12 @@ const RoutineCard = ({
 // Cards Container Component
 const RoutineCards = ({ 
   routines, 
-  isSystem 
+  isSystem,
+  onWorkoutStart
 }: {
   routines: ExtendedWorkoutPlan[];
   isSystem: boolean;
+  onWorkoutStart: () => void;
 }) => {
   const [activeWorkoutRoutine, setActiveWorkoutRoutine] = useState<string | null>(null);
 
@@ -320,6 +437,7 @@ const RoutineCards = ({
           routine={routine}
           isSystem={isSystem}
           activeWorkoutRoutine={activeWorkoutRoutine}
+          onWorkoutStart={onWorkoutStart}
         />
       ))}
     </div>
@@ -336,10 +454,23 @@ const startTour = () => {
   console.log('Starting tour...');
 };
 
-// Main Page Component (matching your exact Next.js structure)
+// Main Page Component
 export default function WorkoutPage() {
+  const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
+  const [modalActionType, setModalActionType] = useState<'workout' | 'create'>('workout');
+
   const userRoutines = sampleRoutines.filter(routine => !routine.isSystemRoutine);
   const systemRoutines = sampleRoutines.filter(routine => routine.isSystemRoutine);
+
+  const handleWorkoutStart = () => {
+    setModalActionType('workout');
+    setIsRegisterModalOpen(true);
+  };
+
+  const handleCreateRoutine = () => {
+    setModalActionType('create');
+    setIsRegisterModalOpen(true);
+  };
 
   return (
     <div className="page-container">
@@ -355,11 +486,10 @@ export default function WorkoutPage() {
             <IconWalk size={22} />
           </button>
           <Button
-            as={Link}
-            href="https://super-mosquito-26.accounts.dev/sign-in"
             color="primary"
             className="gap-unit-1"
             id="new-routine-button"
+            onPress={handleCreateRoutine}
           >
             <IconPlus size={16} /> New Routine
           </Button>
@@ -371,16 +501,20 @@ export default function WorkoutPage() {
           Your Routines
         </h2>
         {userRoutines.length > 0 ? (
-          <RoutineCards routines={userRoutines} isSystem={false} />
+          <RoutineCards 
+            routines={userRoutines} 
+            isSystem={false} 
+            onWorkoutStart={handleWorkoutStart}
+          />
         ) : (
           <p>
             No routines have been created.{" "}
-            <Link
-              className="text-danger dark:text-danger"
-              href="https://super-mosquito-26.accounts.dev/sign-in"
+            <button
+              className="text-danger dark:text-danger underline"
+              onClick={handleCreateRoutine}
             >
               Click here to create one
-            </Link>
+            </button>
             .
           </p>
         )}
@@ -390,8 +524,18 @@ export default function WorkoutPage() {
         <h3 className="font-semibold text-xl md:text-[22px] mb-5 mt-10">
           Suggested Routines
         </h3>
-        <RoutineCards routines={systemRoutines} isSystem={true} />
+        <RoutineCards 
+          routines={systemRoutines} 
+          isSystem={true} 
+          onWorkoutStart={handleWorkoutStart}
+        />
       </div>
+
+      <RegisterPromptModal
+        isOpen={isRegisterModalOpen}
+        onClose={() => setIsRegisterModalOpen(false)}
+        actionType={modalActionType}
+      />
     </div>
   );
 }

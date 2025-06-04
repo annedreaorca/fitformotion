@@ -87,12 +87,12 @@ export default function SidebarNav() {
           active={pathname.startsWith("/demo/gallery")}
         />
 
-        <NavItem
+        {/* <NavItem
           icon={<IconMessageChatbot size={22} className="shrink-0" />}
           label="ChatBot"
           href="/demo/chatbot"
           active={pathname === "/demo/chatbot"}
-        />
+        /> */}
 
         {/* <NavItem
           icon={<IconCrown size={22} className="shrink-0" />}

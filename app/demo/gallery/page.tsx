@@ -138,7 +138,7 @@ export default function Gallery() {
                   />
                 </a>
                 <span className="absolute top-0 right-0 mt-2 mr-2 kebab-gallery">
-                  <KebabMenu
+                  {/* <KebabMenu
                     header="Options"
                     width="auto"
                     footer={
@@ -150,7 +150,7 @@ export default function Gallery() {
                         <IconTrash size={16} className="w-4" />
                       </button>
                     }
-                  />
+                  /> */}
                 </span>
               </div>
               <div className="px-2 workout-details">
